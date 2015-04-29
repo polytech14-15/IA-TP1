@@ -23,7 +23,9 @@ import util.HashMapUtil;
  *
  */
 public class ValueIterationAgent extends PlanningValueAgent {
+
     //*** VOTRE CODE
+
     HashMapUtil v;
     Double gamma;
 
@@ -56,7 +58,7 @@ public class ValueIterationAgent extends PlanningValueAgent {
         HashMapUtil v_clone = (HashMapUtil) this.v.clone();
         // Pour chaque etats
         for (Etat e : this.mdp.getEtatsAccessibles()) {
-            double max = 0;
+            double max = -Double.MAX_VALUE;
             // Pour chaque action de cet etat
             for (Action a : this.mdp.getActionsPossibles(e)) {
                 Double sum = 0.0;
@@ -81,7 +83,7 @@ public class ValueIterationAgent extends PlanningValueAgent {
         // Mise a jour delta
         Double diff_max = 0.0;
         for (Etat e : this.v.keySet()) {
-            if (diff_max < Math.abs(this.v.get(e) - v_clone.get(e))){
+            if (diff_max < Math.abs(this.v.get(e) - v_clone.get(e))) {
                 diff_max = Math.abs(this.v.get(e) - v_clone.get(e));
             }
         }
@@ -90,7 +92,7 @@ public class ValueIterationAgent extends PlanningValueAgent {
         // mise a jour vmax et vmin pour affichage
         // ...
         Double t_vmin = Double.MAX_VALUE;
-        Double t_vmax = Double.MIN_VALUE;
+        Double t_vmax = -Double.MAX_VALUE;
         for (Double v_value : this.v.values()) {
             t_vmin = Math.min(t_vmin, v_value);
             t_vmax = Math.max(t_vmax, v_value);
@@ -135,7 +137,7 @@ public class ValueIterationAgent extends PlanningValueAgent {
         //*** VOTRE CODE
         List<Action> l = new ArrayList<>();
         List<Action> t_l = this.mdp.getActionsPossibles(_e);
-        double maxvalue = 0;
+        double maxvalue = -Double.MAX_VALUE;
         for (Action a : t_l) {
             try {
                 HashMap<Etat, Double> hash = (HashMap<Etat, Double>) this.mdp.getEtatTransitionProba(_e, a);
@@ -168,8 +170,8 @@ public class ValueIterationAgent extends PlanningValueAgent {
             this.v.put(e, 0.0);
         }
 
-        this.vmin = Double.MAX_VALUE;
-        this.vmax = Double.MAX_VALUE;
+        super.vmin = Double.MAX_VALUE;
+        super.vmax = -Double.MAX_VALUE;
 
         /*-----------------*/
         this.notifyObs();
