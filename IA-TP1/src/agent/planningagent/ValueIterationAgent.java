@@ -81,9 +81,11 @@ public class ValueIterationAgent extends PlanningValueAgent {
         // Mise a jour delta
         Double diff_max = 0.0;
         for (Etat e : this.v.keySet()) {
-            diff_max = Math.max(this.v.get(e), v_clone.get(e));
+            if (diff_max < Math.abs(this.v.get(e) - v_clone.get(e))){
+                diff_max = Math.abs(this.v.get(e) - v_clone.get(e));
+            }
         }
-        this.delta = diff_max;
+        super.delta = diff_max;
 
         // mise a jour vmax et vmin pour affichage
         // ...
@@ -93,8 +95,8 @@ public class ValueIterationAgent extends PlanningValueAgent {
             t_vmin = Math.min(t_vmin, v_value);
             t_vmax = Math.max(t_vmax, v_value);
         }
-        this.vmin = t_vmin;
-        this.vmax = t_vmax;
+        super.vmin = t_vmin;
+        super.vmax = t_vmax;
 
         //******************* a laisser a la fin de la methode
         this.notifyObs();
