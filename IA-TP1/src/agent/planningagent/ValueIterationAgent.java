@@ -106,6 +106,8 @@ public class ValueIterationAgent extends PlanningValueAgent {
 
     /**
      * renvoi l'action donnee par la politique
+     * @param e
+     * @return 
      */
     @Override
     public Action getAction(Etat e) {
@@ -131,6 +133,8 @@ public class ValueIterationAgent extends PlanningValueAgent {
      * renvoi action(s) de plus forte(s) valeur(s) dans etat (plusieurs actions
      * sont renvoyees si valeurs identiques, liste vide si aucune action n'est
      * possible)
+     * @param _e
+     * @return 
      */
     @Override
     public List<Action> getPolitique(Etat _e) {
